@@ -4,8 +4,14 @@ import { Button, Card } from '@/components/ui'
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
+import { use } from 'react'
 
-export default function SharePage({ params }: { params: { id: string } }) {
+type Params = {
+  id: string
+}
+
+export default function SharePage({ params }: { params: Promise<Params> }) {
+  const resolvedParams = use(params)
   const [name, setName] = useState('')
   const [message, setMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -27,7 +33,7 @@ export default function SharePage({ params }: { params: { id: string } }) {
       const { error } = await supabase
         .from('friend_messages')
         .insert({
-          time_capsule_id: params.id,
+          time_capsule_id: resolvedParams.id,
           sender_name: name,
           message_content: message
         })
