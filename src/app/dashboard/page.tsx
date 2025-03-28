@@ -1,7 +1,7 @@
 'use client'
 
 import { Card } from '@/components/ui'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import Image from 'next/image'
@@ -61,9 +61,12 @@ export default function DashboardPage() {
     }
   }
 
-  const fetchCapsules = async () => {
+  // fetchCapsules 함수를 useCallback으로 감싸기
+  const fetchCapsules = useCallback(async () => {
     try {
+      setLoading(true)
       const { data: { session } } = await supabase.auth.getSession()
+      
       if (!session) {
         router.push('/login')
         return
@@ -78,15 +81,15 @@ export default function DashboardPage() {
         .select('*')
         .eq('user_id', session.user.id)
         .order('created_at', { ascending: false })
-
+      
       if (error) throw error
       setCapsules(capsules || [])
     } catch (error) {
-      console.error('타임캡슐 목록 조회 오류:', error)
+      console.error('타임밥슐 조회 오류:', error)
     } finally {
       setLoading(false)
     }
-  }
+  }, [router])
 
   useEffect(() => {
     const getUser = async () => {

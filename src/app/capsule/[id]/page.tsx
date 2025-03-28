@@ -11,7 +11,13 @@ import { saveAs } from 'file-saver'
 // 카카오 SDK 타입 정의
 declare global {
   interface Window {
-    Kakao: any;
+    Kakao: {
+      init: (key: string) => void;
+      isInitialized: () => boolean;
+      Share: {
+        sendDefault: (options: any) => void;
+      };
+    };
   }
 }
 

@@ -65,7 +65,7 @@ export default function CreateCapsulePage() {
     // 랜덤으로 초기 폰트 선택
     const randomFont = fonts[Math.floor(Math.random() * fonts.length)]
     setFontFamily(randomFont.name)
-  }, [])
+  }, [fonts])
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
