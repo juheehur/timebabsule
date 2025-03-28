@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 
@@ -16,14 +16,15 @@ export default function CreateCapsulePage() {
   const [step, setStep] = useState(1)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
-  const fonts = [
+  // fonts 배열을 useMemo로 감싸기
+  const fonts = useMemo(() => [
     { name: 'GangwonEduSaeeum_OTFMediumA', label: '강원교육새음체' },
     { name: 'ANDONG264TTF', label: '안동엄마까투리체' },
     { name: 'KyoboHand', label: '교보손글씨체' },
     { name: 'iceJaram-Rg', label: '아이스자람체' },
     { name: 'YoonChildfundkoreaManSeh', label: '아동복지보호체' },
     { name: 'omyu_pretty', label: '오뮤 예쁨체' }
-  ]
+  ], [])
 
   // 날짜 관련 유틸리티 함수들
   const getDefaultDate = () => {

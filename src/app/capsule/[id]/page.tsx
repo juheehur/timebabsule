@@ -15,10 +15,31 @@ declare global {
       init: (key: string) => void;
       isInitialized: () => boolean;
       Share: {
-        sendDefault: (options: any) => void;
+        sendDefault: (options: KakaoShareOptions) => void;
       };
     };
   }
+}
+
+// 카카오 공유 옵션 타입 정의
+interface KakaoShareOptions {
+  objectType: string;
+  content: {
+    title: string;
+    description: string;
+    imageUrl: string;
+    link: {
+      webUrl: string;
+      mobileWebUrl: string;
+    };
+  };
+  buttons: Array<{
+    title: string;
+    link: {
+      webUrl: string;
+      mobileWebUrl: string;
+    };
+  }>;
 }
 
 type Params = {
