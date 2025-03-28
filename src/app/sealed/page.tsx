@@ -2,8 +2,9 @@
 
 import { Button, Card } from '@/components/ui'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { supabase } from '@/lib/supabase'
 
 export default function SealedPage() {
   const router = useRouter()

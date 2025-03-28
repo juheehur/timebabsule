@@ -6,9 +6,20 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import Image from 'next/image'
 
+// 타임캡슐 타입 정의
+interface TimeCapsule {
+  id: string;
+  title: string;
+  letter_content: string;
+  image_url: string;
+  open_date: string;
+  created_at: string;
+  font_family?: string;
+}
+
 export default function DashboardPage() {
-  const [user, setUser] = useState<any>(null)
-  const [capsules, setCapsules] = useState<any[]>([])
+  const [user, setUser] = useState<{ email: string } | null>(null)
+  const [capsules, setCapsules] = useState<TimeCapsule[]>([])
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
@@ -58,7 +69,9 @@ export default function DashboardPage() {
         return
       }
       
-      setUser(session.user)
+      setUser({
+        email: session.user.email || ''
+      })
 
       const { data: capsules, error } = await supabase
         .from('time_capsules')
@@ -76,8 +89,31 @@ export default function DashboardPage() {
   }
 
   useEffect(() => {
-    fetchCapsules()
-  }, [router])
+    const getUser = async () => {
+      try {
+        setLoading(true)
+        const { data: { session } } = await supabase.auth.getSession()
+        
+        if (!session) {
+          router.push('/login')
+          return
+        }
+        
+        setUser({
+          email: session.user.email || ''
+        })
+
+        fetchCapsules()
+      } catch (error) {
+        console.error('세션 조회 오류:', error)
+        router.push('/login')
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    getUser()
+  }, [router, fetchCapsules])
 
   const handleDeleteCapsule = async (e: React.MouseEvent, capsuleId: string, imageUrl: string) => {
     e.stopPropagation() // 이벤트 버블링 방지

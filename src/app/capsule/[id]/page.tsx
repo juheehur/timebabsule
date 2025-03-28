@@ -1,6 +1,5 @@
 'use client'
 
-import { Card } from '@/components/ui'
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
@@ -20,9 +19,20 @@ type Params = {
   id: string
 }
 
+// 타임캡슐 타입 정의
+interface TimeCapsule {
+  id: string;
+  title: string;
+  letter_content: string;
+  image_url: string;
+  open_date: string;
+  created_at: string;
+  font_family?: string;
+}
+
 export default function CapsuleDetailPage({ params }: { params: Promise<Params> }) {
   const resolvedParams = use(params)
-  const [capsule, setCapsule] = useState<any>(null)
+  const [capsule, setCapsule] = useState<TimeCapsule | null>(null)
   const [loading, setLoading] = useState(true)
   const [isImageModalOpen, setIsImageModalOpen] = useState(false)
   const [isDownloading, setIsDownloading] = useState(false)
@@ -149,6 +159,9 @@ export default function CapsuleDetailPage({ params }: { params: Promise<Params> 
   
   const downloadLetter = async () => {
     try {
+      // capsule이 null인 경우 함수 종료
+      if (!capsule) return;
+  
       setIsDownloading(true)
       const letterElement = document.getElementById('letter-content')
       if (!letterElement) return
@@ -412,7 +425,7 @@ export default function CapsuleDetailPage({ params }: { params: Promise<Params> 
         })
       } catch (error) {
         console.error('카카오톡 공유 중 오류 발생:', error)
-        alert('카카오톡 공유하기를 사용할 수 없습니다. 오류: ' + error.message)
+        alert('카카오톡 공유하기를 사용할 수 없습니다. 오류: ' + (error instanceof Error ? error.message : '알 수 없는 오류'))
       }
     } else {
       console.error('카카오 SDK를 찾을 수 없음')
@@ -425,6 +438,23 @@ export default function CapsuleDetailPage({ params }: { params: Promise<Params> 
       <div className="min-h-screen bg-white py-8 px-4">
         <div className="max-w-4xl mx-auto flex justify-center items-center min-h-[50vh]">
           <div className="w-8 h-8 border-4 border-pink-200 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      </div>
+    )
+  }
+
+  // capsule이 없는 경우도 처리
+  if (!capsule) {
+    return (
+      <div className="min-h-screen bg-white py-8 px-4">
+        <div className="max-w-4xl mx-auto flex justify-center items-center min-h-[50vh] flex-col">
+          <div className="text-xl text-gray-600 mb-4">타임캡슐을 찾을 수 없습니다.</div>
+          <button
+            onClick={() => router.push('/dashboard')}
+            className="px-4 py-2 bg-pink-500 text-white rounded-lg"
+          >
+            대시보드로 돌아가기
+          </button>
         </div>
       </div>
     )
