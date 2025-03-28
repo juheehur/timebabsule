@@ -3,8 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { Button } from '@/components/ui/Button'
+import Image from 'next/image'
 
 export default function CreateCapsulePage() {
   const router = useRouter()
@@ -68,10 +67,6 @@ export default function CreateCapsulePage() {
     const randomFont = fonts[Math.floor(Math.random() * fonts.length)]
     setFontFamily(randomFont.name)
   }, [])
-
-  useEffect(() => {
-    loadFonts();
-  }, [fonts]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]

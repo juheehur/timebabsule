@@ -5,26 +5,12 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import Image from 'next/image'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { Button } from '@/components/ui/Button'
-
-interface TimeCapsule {
-  id: string;
-  title: string;
-  created_at: string;
-  open_date: string;
-}
-
-interface User {
-  id: string;
-  email: string;
-}
 
 export default function DashboardPage() {
-  const router = useRouter()
-  const [user, setUser] = useState<User | null>(null)
-  const [capsules, setCapsules] = useState<TimeCapsule[]>([])
+  const [user, setUser] = useState<any>(null)
+  const [capsules, setCapsules] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
+  const router = useRouter()
 
   // 디버깅용 - 6년 후로 날짜 설정
   const setTimeTo6YearsLater = () => {
@@ -67,7 +53,7 @@ export default function DashboardPage() {
   const fetchCapsules = async () => {
     try {
       const { data: { session } } = await supabase.auth.getSession()
-      if (!session?.user) {
+      if (!session) {
         router.push('/login')
         return
       }
@@ -91,7 +77,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     fetchCapsules()
-  }, [fetchCapsules])
+  }, [router])
 
   const handleDeleteCapsule = async (e: React.MouseEvent, capsuleId: string, imageUrl: string) => {
     e.stopPropagation() // 이벤트 버블링 방지

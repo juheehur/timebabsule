@@ -1,5 +1,6 @@
 'use client'
 
+import { Card } from '@/components/ui'
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
@@ -7,38 +8,12 @@ import Image from 'next/image'
 import { use } from 'react'
 import html2canvas from 'html2canvas'
 import { saveAs } from 'file-saver'
-import { Button } from '@/components/ui/Button'
-import { FaInstagram, FaTwitter } from 'react-icons/fa6'
-import { FaLink } from 'react-icons/fa'
-import { FaDownload } from 'react-icons/fa6'
 
-interface TimeCapsule {
-  id: string;
-  title: string;
-  letter_content: string;
-  created_at: string;
-  open_date: string;
-  font_family?: string;
-}
-
-interface WindowWithKakao extends Window {
-  Kakao: {
-    init: (key: string) => void;
-    Share: {
-      sendDefault: (params: {
-        objectType: string;
-        content: {
-          title: string;
-          description: string;
-          imageUrl: string;
-          link: {
-            mobileWebUrl: string;
-            webUrl: string;
-          };
-        };
-      }) => void;
-    };
-  };
+// 카카오 SDK 타입 정의
+declare global {
+  interface Window {
+    Kakao: any;
+  }
 }
 
 type Params = {
@@ -47,7 +22,7 @@ type Params = {
 
 export default function CapsuleDetailPage({ params }: { params: Promise<Params> }) {
   const resolvedParams = use(params)
-  const [capsule, setCapsule] = useState<TimeCapsule | null>(null)
+  const [capsule, setCapsule] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [isImageModalOpen, setIsImageModalOpen] = useState(false)
   const [isDownloading, setIsDownloading] = useState(false)
@@ -437,9 +412,7 @@ export default function CapsuleDetailPage({ params }: { params: Promise<Params> 
         })
       } catch (error) {
         console.error('카카오톡 공유 중 오류 발생:', error)
-        // 타입 안전한 방식으로 오류 메시지 추출
-        const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류';
-        alert('카카오톡 공유하기를 사용할 수 없습니다. 오류: ' + errorMessage)
+        alert('카카오톡 공유하기를 사용할 수 없습니다. 오류: ' + error.message)
       }
     } else {
       console.error('카카오 SDK를 찾을 수 없음')
