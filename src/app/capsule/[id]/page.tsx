@@ -1,6 +1,5 @@
 'use client'
 
-import { Card } from '@/components/ui'
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
@@ -8,12 +7,38 @@ import Image from 'next/image'
 import { use } from 'react'
 import html2canvas from 'html2canvas'
 import { saveAs } from 'file-saver'
+import { Button } from '@/components/ui/Button'
+import { FaInstagram, FaTwitter } from 'react-icons/fa6'
+import { FaLink } from 'react-icons/fa'
+import { FaDownload } from 'react-icons/fa6'
 
-// 카카오 SDK 타입 정의
-declare global {
-  interface Window {
-    Kakao: any;
-  }
+interface TimeCapsule {
+  id: string;
+  title: string;
+  letter_content: string;
+  created_at: string;
+  open_date: string;
+  font_family?: string;
+}
+
+interface WindowWithKakao extends Window {
+  Kakao: {
+    init: (key: string) => void;
+    Share: {
+      sendDefault: (params: {
+        objectType: string;
+        content: {
+          title: string;
+          description: string;
+          imageUrl: string;
+          link: {
+            mobileWebUrl: string;
+            webUrl: string;
+          };
+        };
+      }) => void;
+    };
+  };
 }
 
 type Params = {
@@ -22,7 +47,7 @@ type Params = {
 
 export default function CapsuleDetailPage({ params }: { params: Promise<Params> }) {
   const resolvedParams = use(params)
-  const [capsule, setCapsule] = useState<any>(null)
+  const [capsule, setCapsule] = useState<TimeCapsule | null>(null)
   const [loading, setLoading] = useState(true)
   const [isImageModalOpen, setIsImageModalOpen] = useState(false)
   const [isDownloading, setIsDownloading] = useState(false)

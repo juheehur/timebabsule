@@ -2,7 +2,7 @@
 
 import { Button, Card } from '@/components/ui'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 export default function SealedPage() {
