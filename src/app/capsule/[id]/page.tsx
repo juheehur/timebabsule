@@ -412,7 +412,9 @@ export default function CapsuleDetailPage({ params }: { params: Promise<Params> 
         })
       } catch (error) {
         console.error('카카오톡 공유 중 오류 발생:', error)
-        alert('카카오톡 공유하기를 사용할 수 없습니다. 오류: ' + error.message)
+        // 타입 안전한 방식으로 오류 메시지 추출
+        const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류';
+        alert('카카오톡 공유하기를 사용할 수 없습니다. 오류: ' + errorMessage)
       }
     } else {
       console.error('카카오 SDK를 찾을 수 없음')
