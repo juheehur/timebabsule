@@ -71,6 +71,8 @@ export default function CreateCapsulePage() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
+      console.log('파일 선택됨:', file.name, file.type, file.size);
+      
       if (file.size > 10 * 1024 * 1024) { // 10MB 제한
         alert('이미지 크기는 10MB를 초과할 수 없습니다.')
         return
@@ -82,9 +84,13 @@ export default function CreateCapsulePage() {
       }
 
       setSelectedFile(file)
+      
+      // 간단한 방식으로 변경 - FileReader로 바로 URL 설정
       const reader = new FileReader()
       reader.onloadend = () => {
-        setPreviewUrl(reader.result as string)
+        const result = reader.result as string;
+        console.log('이미지 로드 완료 - URL 시작 부분:', result.substring(0, 50) + '...');
+        setPreviewUrl(result);
       }
       reader.readAsDataURL(file)
     }
@@ -101,6 +107,8 @@ export default function CreateCapsulePage() {
     
     const file = e.dataTransfer.files?.[0]
     if (file) {
+      console.log('드래그 앤 드롭으로 파일 선택됨:', file.name, file.type, file.size);
+      
       if (file.size > 10 * 1024 * 1024) {
         alert('이미지 크기는 10MB를 초과할 수 없습니다.')
         return
@@ -112,9 +120,13 @@ export default function CreateCapsulePage() {
       }
 
       setSelectedFile(file)
+      
+      // 간단한 방식으로 변경
       const reader = new FileReader()
       reader.onloadend = () => {
-        setPreviewUrl(reader.result as string)
+        const result = reader.result as string;
+        console.log('이미지 로드 완료 - URL 시작 부분:', result.substring(0, 50) + '...');
+        setPreviewUrl(result);
       }
       reader.readAsDataURL(file)
     }
@@ -265,27 +277,32 @@ export default function CreateCapsulePage() {
                 >
                   <div className="space-y-1 text-center">
                     {previewUrl ? (
-                      <div className="relative w-full aspect-video">
-                        <div 
-                          className="w-full h-full rounded-lg" 
-                          style={{
-                            backgroundImage: `url("${previewUrl}")`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center'
-                          }}
+                      <div className="relative" onClick={() => imageRef.current?.click()}>
+                        <img 
+                          src={previewUrl} 
+                          alt="업로드 이미지 미리보기" 
+                          className="w-full h-64 object-contain rounded-lg border border-gray-300"
                         />
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setPreviewUrl(null);
-                            setSelectedFile(null);
-                          }}
-                          className="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md hover:bg-gray-100"
-                        >
-                          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </button>
+                        <div className="absolute top-2 right-2">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setPreviewUrl(null);
+                              setSelectedFile(null);
+                            }}
+                            className="bg-white rounded-full p-1.5 shadow-md hover:bg-gray-100"
+                          >
+                            <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                        
+                        {/* 디버깅용 정보 */}
+                        <div className="mt-2 text-xs text-gray-500 text-center">
+                          이미지 URL 길이: {previewUrl.length} 문자
+                        </div>
                       </div>
                     ) : (
                       <div 

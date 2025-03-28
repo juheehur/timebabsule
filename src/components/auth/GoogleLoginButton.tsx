@@ -5,10 +5,15 @@ import { supabase } from '@/lib/supabase'
 
 export function GoogleLoginButton() {
   const handleGoogleLogin = async () => {
+    // 배포 환경에서 동적으로 현재 도메인을 가져옵니다
+    const redirectUrl = typeof window !== 'undefined' 
+      ? `${window.location.origin}/auth/callback` 
+      : `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`
+      
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
+        redirectTo: redirectUrl,
       },
     })
   }
