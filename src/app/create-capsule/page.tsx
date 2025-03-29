@@ -235,19 +235,19 @@ export default function CreateCapsulePage() {
           <h1 className="text-2xl font-bold text-center mb-8">타임밥슐 만들기</h1>
           <div className="flex items-center justify-center">
             <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              step >= 1 ? 'bg-pink-500 text-white' : 'bg-gray-200'
+              step >= 1 ? 'bg-[#b52a26] text-white' : 'bg-gray-200'
             }`}>
               1
             </div>
-            <div className={`w-20 h-1 ${step >= 2 ? 'bg-pink-500' : 'bg-gray-200'}`} />
+            <div className={`w-20 h-1 ${step >= 2 ? 'bg-[#b52a26]' : 'bg-gray-200'}`} />
             <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              step >= 2 ? 'bg-pink-500 text-white' : 'bg-gray-200'
+              step >= 2 ? 'bg-[#b52a26] text-white' : 'bg-gray-200'
             }`}>
               2
             </div>
-            <div className={`w-20 h-1 ${step >= 3 ? 'bg-pink-500' : 'bg-gray-200'}`} />
+            <div className={`w-20 h-1 ${step >= 3 ? 'bg-[#b52a26]' : 'bg-gray-200'}`} />
             <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              step >= 3 ? 'bg-pink-500 text-white' : 'bg-gray-200'
+              step >= 3 ? 'bg-[#b52a26] text-white' : 'bg-gray-200'
             }`}>
               3
             </div>
@@ -326,7 +326,7 @@ export default function CreateCapsulePage() {
                         <div className="flex text-sm text-gray-600">
                           <label
                             htmlFor="image-upload"
-                            className="relative cursor-pointer bg-white rounded-md font-medium text-pink-600 hover:text-pink-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500"
+                            className="relative cursor-pointer bg-white rounded-md font-medium text-[#b52a26] hover:text-[#a02522] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#b52a26]"
                           >
                             <span>이미지 업로드</span>
                             <input
@@ -352,7 +352,7 @@ export default function CreateCapsulePage() {
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="w-full bg-pink-500 text-white py-3 px-4 rounded-lg hover:bg-pink-600 transition-colors"
+                className="w-full bg-[#b52a26] text-white py-3 px-4 rounded-lg hover:bg-[#a02522] transition-colors"
               >
                 다음 단계
               </button>
@@ -373,7 +373,7 @@ export default function CreateCapsulePage() {
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   placeholder="예) 5년 뒤의 나에게..., 미래의 나에게 보내는 편지"
                   required
                 />
@@ -388,7 +388,7 @@ export default function CreateCapsulePage() {
                 <textarea
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent h-48"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent h-48"
                   style={{ fontFamily: fontFamily }}
                   placeholder="미래의 나에게 전하고 싶은 이야기를 적어보세요..."
                   required
@@ -406,8 +406,8 @@ export default function CreateCapsulePage() {
                       onClick={() => setFontFamily(font.name)}
                       className={`p-4 rounded-lg border-2 transition-all ${
                         fontFamily === font.name
-                          ? 'border-pink-500 bg-pink-50'
-                          : 'border-gray-200 hover:border-pink-200'
+                          ? 'border-[#b52a26] bg-[#f8e9e9]'
+                          : 'border-gray-200 hover:border-[#b52a26]'
                       }`}
                     >
                       <p style={{ fontFamily: font.name }} className="text-2xl mb-2">
@@ -429,7 +429,7 @@ export default function CreateCapsulePage() {
                 <button
                   type="button"
                   onClick={() => setStep(3)}
-                  className="w-full bg-pink-500 text-white py-3 px-4 rounded-lg hover:bg-pink-600 transition-colors"
+                  className="w-full bg-[#b52a26] text-white py-3 px-4 rounded-lg hover:bg-[#a02522] transition-colors"
                 >
                   다음 단계
                 </button>
@@ -450,8 +450,8 @@ export default function CreateCapsulePage() {
                     onClick={() => setOpenDate(getDefaultDate())}
                     className={`px-4 py-2 rounded-lg border-2 transition-colors ${
                       openDate === getDefaultDate()
-                        ? 'border-pink-500 bg-pink-50 text-pink-700'
-                        : 'border-gray-200 hover:border-pink-200'
+                        ? 'border-[#b52a26] bg-[#f8e9e9] text-[#b52a26]'
+                        : 'border-gray-200 hover:border-[#b52a26]'
                     }`}
                   >
                     5년 뒤
@@ -461,8 +461,8 @@ export default function CreateCapsulePage() {
                     onClick={() => setOpenDate(getOneYearLater())}
                     className={`px-4 py-2 rounded-lg border-2 transition-colors ${
                       openDate === getOneYearLater()
-                        ? 'border-pink-500 bg-pink-50 text-pink-700'
-                        : 'border-gray-200 hover:border-pink-200'
+                        ? 'border-[#b52a26] bg-[#f8e9e9] text-[#b52a26]'
+                        : 'border-gray-200 hover:border-[#b52a26]'
                     }`}
                   >
                     1년 뒤
@@ -472,8 +472,8 @@ export default function CreateCapsulePage() {
                     onClick={() => setOpenDate(getNextChristmas())}
                     className={`px-4 py-2 rounded-lg border-2 transition-colors ${
                       openDate === getNextChristmas()
-                        ? 'border-pink-500 bg-pink-50 text-pink-700'
-                        : 'border-gray-200 hover:border-pink-200'
+                        ? 'border-[#b52a26] bg-[#f8e9e9] text-[#b52a26]'
+                        : 'border-gray-200 hover:border-[#b52a26]'
                     }`}
                   >
                     다음 크리스마스
@@ -483,8 +483,8 @@ export default function CreateCapsulePage() {
                     onClick={() => setOpenDate(getNextNewYear())}
                     className={`px-4 py-2 rounded-lg border-2 transition-colors ${
                       openDate === getNextNewYear()
-                        ? 'border-pink-500 bg-pink-50 text-pink-700'
-                        : 'border-gray-200 hover:border-pink-200'
+                        ? 'border-[#b52a26] bg-[#f8e9e9] text-[#b52a26]'
+                        : 'border-gray-200 hover:border-[#b52a26]'
                     }`}
                   >
                     내년 1월 1일
@@ -495,7 +495,7 @@ export default function CreateCapsulePage() {
                     type="date"
                     value={openDate}
                     onChange={(e) => setOpenDate(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent cursor-pointer"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b52a26] focus:border-transparent cursor-pointer"
                     min={new Date().toISOString().split('T')[0]}
                     required
                   />
@@ -515,7 +515,7 @@ export default function CreateCapsulePage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-pink-500 text-white py-3 px-4 rounded-lg hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-[#b52a26] text-white py-3 px-4 rounded-lg hover:bg-[#a02522] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? '생성 중...' : '타임밥슐 봉인하기'}
                 </button>

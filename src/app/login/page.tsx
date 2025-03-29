@@ -25,10 +25,10 @@ export default function LoginPage() {
               5년 후, 소중한 추억을 안전하게 전달하기 위해<br />
               구글 계정으로 로그인해 주세요
             </p>
-            <div className="bg-pink-50 p-4 rounded-lg text-sm text-gray-700 mb-2">
+            <div className="bg-red-50 p-4 rounded-lg text-sm text-gray-700 mb-2">
               <p>
                 로그인하면 타임밥슐을 안전하게 보관하고, 개봉일이 되면 알림을 받을 수 있어요.
-                또한 최대 3개까지 타임밥슐을 만들 수 있답니다!
+                최대 3개까지 타임밥슐을 만들 수 있답니다!
               </p>
             </div>
           </div>

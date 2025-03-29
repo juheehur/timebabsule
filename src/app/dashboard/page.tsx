@@ -196,7 +196,7 @@ export default function DashboardPage() {
     return (
       <div className="min-h-screen bg-white py-8 px-6">
         <div className="max-w-xl mx-auto flex justify-center items-center min-h-[50vh]">
-          <div className="w-8 h-8 border-4 border-pink-200 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-8 h-8 border-4 border-red-200 border-t-transparent rounded-full animate-spin"></div>
         </div>
       </div>
     )
@@ -247,7 +247,7 @@ export default function DashboardPage() {
             className={`w-full py-4 rounded-full flex items-center justify-center transition-colors ${
               capsules.length >= 3 
                 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' 
-                : 'bg-pink-500 text-white hover:bg-pink-600'
+                : 'bg-[#b52a26] text-white hover:bg-[#a02522]'
             }`}
           >
             <span className="mr-2">💌</span>
@@ -260,7 +260,7 @@ export default function DashboardPage() {
         </div>
 
         {capsules.length === 0 ? (
-          <div className="text-center py-16 bg-pink-50/50 rounded-xl">
+          <div className="text-center py-16 bg-red-50/50 rounded-xl">
             <p className="text-gray-600 mb-4 text-lg">아직 만든 타임밥슐이 없어요</p>
             <p className="text-gray-500">
               소중한 추억을 담아 미래의 나에게 선물해보세요
@@ -295,14 +295,14 @@ export default function DashboardPage() {
                       </h2>
                       <button
                         onClick={(e) => handleDeleteCapsule(e, capsule.id, capsule.image_url)}
-                        className="ml-2 flex-shrink-0 bg-white border border-pink-200 text-gray-900 px-3 py-1 rounded-full text-sm hover:bg-pink-50 shadow-sm"
+                        className="ml-2 flex-shrink-0 bg-white border border-red-200 text-gray-900 px-3 py-1 rounded-full text-sm hover:bg-red-50 shadow-sm"
                       >
                         삭제
                       </button>
                     </div>
                     <div className="text-sm text-gray-500">
                       <p className="mb-1">봉인된 날짜: {formatDate(capsule.created_at)}</p>
-                      <p className="text-pink-500 font-medium">개봉 예정일: {formatDate(capsule.open_date)}</p>
+                      <p className="text-[#b52a26] font-medium">개봉 예정일: {formatDate(capsule.open_date)}</p>
                     </div>
                   </div>
                 </div>

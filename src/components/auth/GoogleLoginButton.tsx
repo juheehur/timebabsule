@@ -23,9 +23,8 @@ export function GoogleLoginButton() {
       onClick={handleGoogleLogin}
       variant="secondary"
       size="lg"
-      className="w-full text-lg font-medium rounded-[50px] bg-white hover:bg-gray-50 text-gray-900 border-2 border-pink-200 transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden py-6"
+      className="w-full text-lg font-medium rounded-[50px] bg-white hover:bg-gray-50 text-gray-900 border-[1.5px] border-[#760c0c] transition-all duration-300 py-6"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-pink-50/30 to-pink-100/30 pointer-events-none rounded-[50px]" />
       <div className="relative flex items-center justify-center gap-3">
         <svg
           xmlns="http://www.w3.org/2000/svg"
